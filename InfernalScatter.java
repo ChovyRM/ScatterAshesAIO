@@ -54,19 +54,15 @@ public class InfernalScatter extends LoopingBot implements SettingsListener {
             return;
         }
 
-        if (state == State.BANK) {
-            bank();
-            return;
+        switch (state) {
+            case BANK:
+                state = State.BANK;
+                break;
+            case SCATTER:
+                state = State.SCATTER;
+                break;
         }
-
-        if (Bank.isOpen()) {
-            Bank.close(true);
-        }
-
-        if (state == State.SCATTER) {
-            scatter();
-            return;
-        }
+        
         if (state == null) {
             log.info("State is null.");
             if (Inventory.contains(config.ashes().getGameName())) {
